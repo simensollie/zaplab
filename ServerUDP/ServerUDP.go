@@ -1,23 +1,26 @@
 //Recieve and print out data from ZapClient(s)
 package main
-// Simen er kul
+
 import (
 	"fmt"
 	"net"
 	"os"
+	"time"
 )
 
+const timeLayout = "2006/01/02, 15:04:05"
+
 type zapEvent struct {
-	date string
-	time string
+	datetime Time
 	ip string
 	fromCh string
 	toCh string
 }
 
 func newZapEvent(data string) *zapEvent {
-	//z := zapEvent(string(data))
-	return nil
+	s[]:= strings.Split(data, ", ")
+	t, _ := time.Parse(timeLayout, data[0:20])
+	return &zapEvent{t, s[2], s[3], s[4]}
 }
 
 func main() {
@@ -33,7 +36,7 @@ func listen(conn *net.UDPConn) {
 	for {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
-		fmt.Println(string(data[0:n]))
+		//fmt.Println(string(data[0:n]))
 	}
 }
 
@@ -45,6 +48,11 @@ func checkError(err error){
 }
 
 func (ze *zapEvent) String() string {
-	
+	s := z.datetime + ", " + z.ip + ", " + a
 	return "Ikke implementert"
+}
+
+func (ze *zapEvent) Duration(provided ChZap) time.Time {
+
+	return time
 }
