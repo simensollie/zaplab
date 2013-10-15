@@ -1,6 +1,6 @@
 //Recieve and print out data from ZapClient(s)
 package main
-// Simen er kul
+
 import (
 	"fmt"
 	"net"
