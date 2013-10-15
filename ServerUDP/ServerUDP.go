@@ -19,7 +19,6 @@ type zapEvent struct {
 }
 
 func newZapEvent(data string) *zapEvent {
-//	[]s := strings.Split(data, ", ")
 	s := strings.Split(data, ", ")
 	t, _ := time.Parse(timeLayout, data[0:20])
 	return &zapEvent{t, s[2], s[3], s[4]}
@@ -29,7 +28,6 @@ func main() {
 	udpAddr, err := net.ResolveUDPAddr("udp", "224.0.1.130:10000")
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
-
 	listen(netListen)
 }
 
@@ -39,6 +37,7 @@ func listen(conn *net.UDPConn) {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
 		fmt.Println(string(data[0:n]))
+//		fmt.Println(String())
 	}
 }
 
@@ -50,8 +49,8 @@ func checkError(err error){
 }
 
 func (ze *zapEvent) String() string {
-	//sprintf
-	return "Ikke implementert"
+	f := "%s, %s, %s, %s"
+	return fmt.Sprintf(f, ze)
 }
 
 /*func (ze *zapEvent) Duration(provided ChZap) time.Time {
