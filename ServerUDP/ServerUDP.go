@@ -12,7 +12,7 @@ import (
 const timeLayout = "2006/01/02, 15:04:05"
 
 type zapEvent struct {
-	datetime date
+	datetime time.Time
 	ip string
 	fromCh string
 	toCh string
@@ -38,7 +38,7 @@ func listen(conn *net.UDPConn) {
 	for {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
-		//fmt.Println(string(data[0:n]))
+		fmt.Println(string(data[0:n]))
 	}
 }
 
