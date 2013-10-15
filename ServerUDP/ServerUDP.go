@@ -6,19 +6,21 @@ import (
 	"net"
 	"os"
 	"time"
+	"strings"
 )
 
 const timeLayout = "2006/01/02, 15:04:05"
 
 type zapEvent struct {
-	datetime Time
+	datetime date
 	ip string
 	fromCh string
 	toCh string
 }
 
 func newZapEvent(data string) *zapEvent {
-	s[]:= strings.Split(data, ", ")
+//	[]s := strings.Split(data, ", ")
+	s := strings.Split(data, ", ")
 	t, _ := time.Parse(timeLayout, data[0:20])
 	return &zapEvent{t, s[2], s[3], s[4]}
 }
@@ -48,11 +50,11 @@ func checkError(err error){
 }
 
 func (ze *zapEvent) String() string {
-	s := z.datetime + ", " + z.ip + ", " + a
+	//sprintf
 	return "Ikke implementert"
 }
 
-func (ze *zapEvent) Duration(provided ChZap) time.Time {
+/*func (ze *zapEvent) Duration(provided ChZap) time.Time {
 
 	return time
-}
+}*/
