@@ -36,7 +36,7 @@ func listen(conn *net.UDPConn) {
 	for {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
-		nze := newZapEvent(data[0:n])
+		nze := newZapEvent(string(data[0:n]))
 		nze.String()
 		
 
