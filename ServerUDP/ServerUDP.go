@@ -37,11 +37,9 @@ func listen(conn *net.UDPConn) {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
 		nze := newZapEvent(string(data[0:n]))
-		nze.String()
-		
+		fmt.Println(nze)
 
-//		fmt.Println(string(data[0:n]))
-//		fmt.Println(String(data[0:n]))
+//		fmt.Println(string(data[0:n])
 	}
 }
 
@@ -53,7 +51,7 @@ func checkError(err error){
 }
 
 func (ze *zapEvent) String() string {
-	return fmt.Sprintf("%s", ze)
+	return fmt.Sprintf("%s, %s, %s, %s", ze.datetime, ze.ip, ze.fromCh, ze.toCh)
 }
 
 /*func (ze *zapEvent) Duration(provided ChZap) time.Duration {
