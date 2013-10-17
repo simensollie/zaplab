@@ -36,10 +36,13 @@ func listen(conn *net.UDPConn) {
 	for {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
+		
 		nze := newZapEvent(string(data[0:n]))
+		if (len(nze.String())>4){
 		fmt.Println(nze)
+		}
 
-//		fmt.Println(string(data[0:n])
+		//fmt.Println(string(data[0:n]))
 	}
 }
 
