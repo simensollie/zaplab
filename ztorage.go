@@ -1,7 +1,7 @@
 package ztorage
 
 import (
-	"zapBox/chzap"
+	"chzap"
 )
 
 type Zaps []chzap.ChZap

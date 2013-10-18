@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 	"strings"
+	"ztorage"
 )
 
 const timeLayout = "2006/01/02, 15:04:05"
@@ -33,6 +34,12 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	listen(netListen)
+
+	for {
+		time.Sleep(1 * time.Second)
+		nrk := NewZapStore()
+		//fmt.Println(nrk)
+	}
 }
 
 func listen(conn *net.UDPConn) {
@@ -41,7 +48,7 @@ func listen(conn *net.UDPConn) {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
 		nze := newZapEvent(string(data[0:n]))
-		fmt.Println(nze)
+		//fmt.Println(nze)
 	}
 }
 
