@@ -18,7 +18,8 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-
+	
+	//må lage egen funksjon for denn (c1 og c2)
 	for {
 		time.Sleep(1 * time.Second)
 		//computeviewers
@@ -27,6 +28,12 @@ func main() {
 		//print computed viewers
 		fmt.Println("Number of viewers @ NRK1: ", nrk)
 		fmt.Println("Number of viewers @ TV2: ", tv2)
+	}
+
+	//denne og må i egen funksjon (c3)
+	for {
+		time.Sleep(5 * time.Second)
+		//print ut "the number of entries in the storage
 	}
 }
 
