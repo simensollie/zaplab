@@ -42,8 +42,6 @@ func listen(conn *net.UDPConn) {
 		checkError(err)
 		nze := newZapEvent(string(data[0:n]))
 		fmt.Println(nze)
-
-//		fmt.Println(string(data[0:n])
 	}
 }
 
