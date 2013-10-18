@@ -6,10 +6,12 @@ import (
 	"net"
 	"os"
 	"time"
-	"strings"
+	"zaplab/zapevent"
+	"zaplab/ztorage"
 )
 
 //global variabel av newzapstore skal kunne brukes av main og listen
+var zapstore Zaps = NewZapStore()
 
 func main() {
 	udpAddr, err := net.ResolveUDPAddr("udp", "224.0.1.130:10000")
@@ -20,7 +22,9 @@ func main() {
 	for {
 		time.Sleep(1 * time.Second)
 		//computeviewers
+		nrk := zapstore.ComputeViewers("NRK1")
 		//print computed viewers
+		fmt.Println("Number of viewers @ NRK1: %d", nrk)
 	}
 }
 
@@ -32,6 +36,7 @@ func listen(conn *net.UDPConn) {
 		nze := newZapEvent(string(data[0:n]))
 		//fmt.Println(nze)
 		//inn i StoreZap
+		zapstore.StoreZap(nze)
 	}
 }
 
