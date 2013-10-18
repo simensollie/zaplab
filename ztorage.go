@@ -1,17 +1,13 @@
 package ztorage
 
-import (
-	"chzap"
-)
-
-type Zaps []chzap.ChZap
+type Zaps []zapEvent
 
 func NewZapStore() *Zaps {
 	zs := make(Zaps, 0)
 	return &zs
 }
 
-func (zs *Zaps) StoreZap(z chzap.ChZap) {
+func (zs *Zaps) StoreZap(z zapEvent) {
 	*zs = append(*zs, z)
 }
 
