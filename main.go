@@ -18,23 +18,9 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	
-	//må lage egen funksjon for denn (c1 og c2)
-	for {
-		time.Sleep(1 * time.Second)
-		//computeviewers
-		nrk := zapstore.ComputeViewers("NRK1")
-		tv2 := zapstore.ComputeViewers("TV2 Norge")
-		//print computed viewers
-		fmt.Println("Number of viewers @ NRK1: ", nrk)
-		fmt.Println("Number of viewers @ TV2: ", tv2)
-	}
-
-	//denne og må i egen funksjon (c3)
-	for {
-		time.Sleep(5 * time.Second)
-		//print ut "the number of entries in the storage
-	}
+	go chviewers("NRK1")
+	go chviewers("TV2 Norge")
+	entries(zapstore)
 }
 
 func listen(conn *net.UDPConn) {
@@ -48,6 +34,22 @@ func listen(conn *net.UDPConn) {
 		zapstore.StoreZap(nze)
 	}
 }
+
+func chviewers(ch string) {
+	for {
+		time.Sleep(1 * time.Second)
+		viewers := zapstore.ComputeViewers(ch)
+		fmt.Printf("Number of viewers @ %s: %d\n", ch, viewers)
+	}
+}
+
+func entries(ent *zapstore.Zaps) {
+	for {
+		time.Sleep(5 * time.Second)
+		fmt.Printf("Number of entries in the storage: %d\n", len(ent))
+	}
+}
+
 
 func checkError(err error){
 	if err != nil {

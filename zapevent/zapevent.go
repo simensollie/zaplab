@@ -23,6 +23,7 @@ func NewZapEvent(data string) *ZapEvent {
 	} else {
 		return &ZapEvent{t, s[2], s[3], s[4]}
 	}
+	return nil
 }
 
 func (ze *ZapEvent) String() string {
