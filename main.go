@@ -18,9 +18,9 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	go chviewers("NRK1")
-	go chviewers("TV2 Norge")
-	entries("storagen vaar")
+	//go chviewers("NRK1")
+	//go chviewers("TV2 Norge")
+	entries(zapstore)
 }
 
 func listen(conn *net.UDPConn) {
@@ -43,10 +43,10 @@ func chviewers(ch string) {
 	}
 }
 
-func entries(zaps "en eller aen type") {
+func entries(zaps *ztorage.Zaps) {
 	for {
 		time.Sleep(5 * time.Second)
-		fmt.Printf("Number of entries in the storage: %d\n", len(zaps))
+		fmt.Printf("Number of entries in the storage: %d\n", len(*zaps))
 	}
 }
 
