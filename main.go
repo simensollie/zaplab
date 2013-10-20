@@ -20,7 +20,7 @@ func main() {
 	go listen(netListen)
 	go chviewers("NRK1")
 	go chviewers("TV2 Norge")
-	entries(zapstore)
+	entries("storagen vaar")
 }
 
 func listen(conn *net.UDPConn) {
@@ -43,10 +43,10 @@ func chviewers(ch string) {
 	}
 }
 
-func entries(ent *zapstore.Zaps) {
+func entries(zaps "en eller aen type") {
 	for {
 		time.Sleep(5 * time.Second)
-		fmt.Printf("Number of entries in the storage: %d\n", len(ent))
+		fmt.Printf("Number of entries in the storage: %d\n", len(zaps))
 	}
 }
 
