@@ -11,18 +11,16 @@ import (
 	"zaplab/ztorage"
 	"runtime/pprof"
 	"flag"
-	"syscall"
 )
 
 //global variabel av newzapstore skal kunne brukes av main og listen
 var zapstore = ztorage.NewZapStore()
-var memprofile = flag.String("memprofile", "", "dette er en test")
+var memprofile = flag.String("memprofile", "", "write memory profile to this file")
 
 func main() {
 	flag.Parse()
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, os.Kill)
-	signal.Notify(c, syscall.SIGTERM)
+	signal.Notify(c, os.Kill, os.Interrupt)
 
 	udpAddr, err := net.ResolveUDPAddr("udp", "224.0.1.130:10000")
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
@@ -30,13 +28,10 @@ func main() {
 	go listen(netListen)
 	go chviewers("NRK1")
 	go chviewers("TV2 Norge")
-	entries(zapstore)
+	go entries(zapstore)
 
-	go func() {
-		<-c
-		memProfile()
-		os.Exit(1)
-	}()
+	<-c
+	memProfile()
 }
 
 func listen(conn *net.UDPConn) {
