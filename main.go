@@ -52,6 +52,13 @@ func listen(conn *net.UDPConn) {
 	}
 }
 
+func topchannels() {
+	for {
+		time.Sleep(1 * time.Second)
+		elements := make(map[/*our slice*/]string)
+	}
+}
+
 func chviewers(ch string) {
 	for {
 		time.Sleep(1 * time.Second)
