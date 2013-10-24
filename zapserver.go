@@ -14,6 +14,7 @@ import (
 
 var zapstore = ztorage.NewZapStore()
 var memprofile = flag.String("memprofile", "", "write memory profile to this file")
+var m  map[]int
 
 type Sub struct {
 	entries int
@@ -41,6 +42,33 @@ func main() {
 	<-c
 	memProfile()
 }
+
+func chcount(zaps *ztorage.Zaps) {
+	m = make(map[*zaps]int)
+	for _, v := range *zs {
+		if m[zaps.FromCh]{
+			if m[zaps.FromCh] > 0 {
+				m[zaps.FromCh] =- 1
+			}
+		} else {
+			m[zaps.FromCh] = 0
+		}
+
+		if m[zaps.ToCh] {
+			m[zaps.ToCh] += 1
+		} else  {
+			m[zaps.ToCh] = 1
+		}
+	}
+}
+
+func topch(count *chcount){
+	for{
+		time.Sleep(1 * time.Second)
+		//print top10
+	}
+}
+
 
 func listen(conn *net.UDPConn) {
 	var data [256]byte
