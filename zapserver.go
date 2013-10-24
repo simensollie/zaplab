@@ -62,7 +62,7 @@ func chcount(zaps *ztorage.Zaps) {
 	}
 }
 
-func topch(count *chcount){
+func topch(){
 	for{
 		time.Sleep(1 * time.Second)
 		//print top10
