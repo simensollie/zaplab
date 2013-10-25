@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"zaplab/mapsort"
+//	"zaplab/mapsort"
 	"zaplab/topchan"
 	"zaplab/zapevent"
 	"zaplab/ztorage"
@@ -30,7 +30,7 @@ func main() {
 	//go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
-	go topchan.topTen(m)
+	go topchan.TopTen(zapstore, m)
 
 	<-c
 	memProfile()

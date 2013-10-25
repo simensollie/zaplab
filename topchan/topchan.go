@@ -24,7 +24,7 @@ func ChCount(zaps *ztorage.Zaps, m map[string]int) {
 	}
 }
 
-func topTen(m map[string]int){
+func TopTen(zapstore *ztorage.Zaps, m map[string]int){
 	        i := 0
 		for {
 			ChCount(zapstore, m)
