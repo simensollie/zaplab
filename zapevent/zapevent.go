@@ -19,9 +19,9 @@ func NewZapEvent(data string) *ZapEvent {
 	s := strings.Split(data, ", ")
 	t, _ := time.Parse(timeLayout, data[0:20])
 	if (len(s) < 5) {
-		return &ZapEvent{t, s[2], s[3], "TASTATUR"}
+		return &ZapEvent{Dt:t, Ip:s[2], FromCh:s[3]}
 	} else {
-		return &ZapEvent{t, s[2], s[3], s[4]}
+		return &ZapEvent{Dt:t, Ip:s[2], FromCh:s[3], ToCh:s[4]}
 	}
 	return nil
 }
