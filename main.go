@@ -30,7 +30,7 @@ func main() {
 	//go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
-	go topTen(m)
+	go topchan.topTen(m)
 
 	<-c
 	memProfile()
@@ -58,22 +58,6 @@ func entries(zaps *ztorage.Zaps) {
 	for {
 		time.Sleep(5 * time.Second)
 		fmt.Printf("Number of entries in the storage: %d\n", len(*zaps))
-	}
-}
-
-func topTen(m map[string]int){
-	i := 0
-	for {
-		topchan.ChCount(zapstore, m)
-
-		time.Sleep(1*time.Second)
-		sm := mapsort.SortedKeys(m)
-
-		if i > 0 {
-			fmt.Printf("Top 10 channels: %v\n", sm[0:10])
-		}
-
-		i++
 	}
 }
 

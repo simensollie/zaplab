@@ -1,10 +1,10 @@
 package topchan
 
 import (
-//	"zaplab/mapsort"
+	"zaplab/mapsort"
 	"zaplab/ztorage"
-//	"fmt"
-//	"time"
+	"fmt"
+	"time"
 )
 
 func ChCount(zaps *ztorage.Zaps, m map[string]int) {
@@ -24,19 +24,20 @@ func ChCount(zaps *ztorage.Zaps, m map[string]int) {
 	}
 }
 
-/*func TopCh(m map[string]int){
-	for{
-		time.Sleep(1 * time.Second)
-		fmt.Printf("%v\n", len(m))
-		ms := mapsort.NewMapSort(m)
-		fmt.Printf("%v\n", *ms)
-		ms.Sort()
-		fmt.Printf("%v\n", *ms)
-		//print top10
-		fmt.Println("Top 10 channels:")
-		for i := 0; i < 10; i++ {
-			fmt.Println(ms[i])
+func topTen(m map[string]int){
+	        i := 0
+		for {
+			ChCount(zapstore, m)
+
+			time.Sleep(1*time.Second)
+			sm := mapsort.SortedKeys(m)
+
+			if i > 0 {
+				 fmt.Printf("Top 10 channels: %v\n", sm[0:10])
+			}
+
+			i++
 		}
-	}
-}*/
+}
+
 
