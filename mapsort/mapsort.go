@@ -42,7 +42,7 @@ func (ms *MapSorter) Len() int {
 }
 
 func (ms *MapSorter) Less(i, j int) bool {
-	return ms.Vals[i] < ms.Vals[j]
+	return ms.Vals[i] > ms.Vals[j]
 }
 
 func (ms *MapSorter) Swap(i, j int) {

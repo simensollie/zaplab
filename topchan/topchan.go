@@ -8,10 +8,10 @@ import (
 )
 
 func ChCount(zaps *ztorage.Zaps, m map[string]int) {
-	m = make(map[string]int)
+	//m = make(map[string]int)
 	for _, v := range *zaps {
 		if m[v.FromCh] > 0 {
-			m[v.FromCh] =- 1
+			m[v.FromCh] -= 1
 		} else {
 			m[v.FromCh] = 0
 		}

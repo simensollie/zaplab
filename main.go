@@ -6,16 +6,17 @@ import (
 	"os"
 	"os/signal"
 	"time"
+	"zaplab/mapsort"
+	"zaplab/topchan"
 	"zaplab/zapevent"
 	"zaplab/ztorage"
 	"runtime/pprof"
 	"flag"
-	"zaplab/topchan"
 )
 
 var zapstore = ztorage.NewZapStore()
 var memprofile = flag.String("memprofile", "", "write memory profile to this file")
-var m  map[string]int
+var m  = make(map[string]int)
 
 func main() {
 	flag.Parse()
@@ -26,11 +27,10 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	go chviewers("NRK1")
-	go chviewers("TV2 Norge")
-	go entries(zapstore)
-	go topchan.ChCount(zapstore, m)
-	go topchan.TopCh(m)
+	//go chviewers("NRK1")
+	//go chviewers("TV2 Norge")
+	//go entries(zapstore)
+	go topTen(m)
 
 	<-c
 	memProfile()
@@ -58,6 +58,26 @@ func entries(zaps *ztorage.Zaps) {
 	for {
 		time.Sleep(5 * time.Second)
 		fmt.Printf("Number of entries in the storage: %d\n", len(*zaps))
+	}
+}
+
+func topTen(m map[string]int){
+	for {
+		topchan.ChCount(zapstore, m)
+
+		time.Sleep(1*time.Second)
+		sm := mapsort.SortedKeys(m)
+
+		for i:=0;i<10;i++ {
+			fmt.Printf("%v\n", sm)
+		}
+
+//		ms.Sort()
+//		fmt.Printf("%v\n", ms)
+		/*for k, v := range m {
+			fmt.Println("Key: ", k, "\nValue: ", v)
+		}*/
+		fmt.Println("-----------------------------------------------")
 	}
 }
 
