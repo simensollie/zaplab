@@ -43,9 +43,9 @@ func main() {
 	memProfile()
 }
 
-func chcount(zaps *ztorage.Zaps) {
+func chcount(zaps string) {
 	m = make(map[*zaps]int)
-	for _, v := range *zs {
+	for _, v := range *zaps {
 		if m[zaps.FromCh]{
 			if m[zaps.FromCh] > 0 {
 				m[zaps.FromCh] =- 1
@@ -60,6 +60,7 @@ func chcount(zaps *ztorage.Zaps) {
 			m[zaps.ToCh] = 1
 		}
 	}
+	return m
 }
 
 func topch(){
