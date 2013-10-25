@@ -10,20 +10,12 @@ import (
 	"zaplab/ztorage"
 	"runtime/pprof"
 	"flag"
+	"zaplab/topchan"
 )
 
 var zapstore = ztorage.NewZapStore()
 var memprofile = flag.String("memprofile", "", "write memory profile to this file")
-
-type Sub struct {
-	entries int
-	viewNrk int
-	viewTv2 int
-}
-
-func (s Sub) Subscription(rate int) {
-	return
-}
+var m  map[string]int
 
 func main() {
 	flag.Parse()
@@ -37,6 +29,8 @@ func main() {
 	go chviewers("NRK1")
 	go chviewers("TV2 Norge")
 	go entries(zapstore)
+	go topchan.ChCount(zapstore, m)
+	go topchan.TopCh(m)
 
 	<-c
 	memProfile()
@@ -56,7 +50,6 @@ func chviewers(ch string) {
 	for {
 		time.Sleep(1 * time.Second)
 		viewers := zapstore.ComputeViewers(ch)
-//		Lagre chviewers en plass?!
 		fmt.Printf("Number of viewers @ %s: %d\n", ch, viewers)
 	}
 }
@@ -64,7 +57,6 @@ func chviewers(ch string) {
 func entries(zaps *ztorage.Zaps) {
 	for {
 		time.Sleep(5 * time.Second)
-//		Lagre entries en plass?!
 		fmt.Printf("Number of entries in the storage: %d\n", len(*zaps))
 	}
 }
