@@ -27,6 +27,7 @@ func ChCount(zaps *ztorage.Zaps, m map[string]int) {
 func TopCh(m map[string]int){
 	for{
 		time.Sleep(1 * time.Second)
+		fmt.Printf("%v\n", len(m))
 		ms := mapsort.NewMapSorter(m)
 		fmt.Printf("%v\n", *ms)
 		ms.Sort()

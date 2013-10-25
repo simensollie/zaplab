@@ -26,9 +26,9 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	go chviewers("NRK1")
-	go chviewers("TV2 Norge")
-	go entries(zapstore)
+//	go chviewers("NRK1")
+//	go chviewers("TV2 Norge")
+//	go entries(zapstore)
 	go topchan.ChCount(zapstore, m)
 	go topchan.TopCh(m)
 
