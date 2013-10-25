@@ -30,7 +30,6 @@ func (ze *ZapEvent) String() string {
 	return fmt.Sprintf("%s, %s, %s, %s", ze.Dt, ze.Ip, ze.FromCh, ze.ToCh)
 }
 
-/*func (ze *ZapEvent) Duration(provided ChZap) time.Duration {
-	
-	return time
-}*/
+func (ze *ZapEvent) Duration(provided ZapEvent) time.Duration {
+	return ze.Sub(provided)
+}
