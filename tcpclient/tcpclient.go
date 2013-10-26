@@ -1,10 +1,9 @@
-package tcpclient
+package main
 
 import (
 	"net"
 	"os"
 	"fmt"
-	"os"
 )
 
 func main() {
@@ -12,8 +11,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "2 Arguments required\n")
 		os.Exit(1)
 	}
-	service := os.Args[1]
-	tcpAddr, err := net.ResolveTCPAddr("tcp", service)
+	//service := os.Args[1]
+	tcpAddr, err := net.ResolveTCPAddr("tcp", ":1202")
 	checkError(err)
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	checkError(err)

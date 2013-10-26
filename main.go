@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"time"
 	"zaplab/tcpserver"
-	"zaplab/topchan"
+//	"zaplab/topchan"
 	"zaplab/zapevent"
 	"zaplab/ztorage"
 	"runtime/pprof"
@@ -30,7 +30,8 @@ func main() {
 	//go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
-	//go topchan.TopTen(zapstore, m)
+	//go topchan.TopTen(zapstore, m, 1)
+	go tcpserver.ListenTCP()
 
 	<-c
 	memProfile()
