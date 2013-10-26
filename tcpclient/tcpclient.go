@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) != 3 {
 		fmt.Fprintf(os.Stderr, "3 Arguments required\n")
 		os.Exit(1)
 	}
@@ -17,8 +17,10 @@ func main() {
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	checkError(err)
 
-	_, err = conn.Write([]byte("It works!"))
-	checkError(err)
+	_, sub = conn.Write([]byte(os.Args[1]))
+	checkError(sub)
+	_, rate = conn.Write([]byte(os.Args[2]))
+	checkError(rate)
 	var buf [512]byte
 	n, err := conn.Read(buf[0:])
 	checkError(err)

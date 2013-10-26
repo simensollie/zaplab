@@ -31,7 +31,7 @@ func main() {
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
 	//go topchan.TopTen(zapstore, m, 1)
-	go tcpserver.ListenTCP()
+	go tcpserver.ListenTCP(zapstore, m)
 
 	<-c
 	memProfile()
