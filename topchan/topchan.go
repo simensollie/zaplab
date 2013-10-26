@@ -24,12 +24,12 @@ func ChCount(zaps *ztorage.Zaps, m map[string]int) {
 	}
 }
 
-func TopTen(zapstore *ztorage.Zaps, m map[string]int, refrate int){
+func TopTen(zapstore *ztorage.Zaps, m map[string]int, rate time.Duration){
 	        i := 0
 		for {
 			ChCount(zapstore, m)
 
-			time.Sleep(refrate*time.Second)
+			time.Sleep(rate*time.Second)
 			sm := mapsort.SortedKeys(m)
 
 			if i > 0 {

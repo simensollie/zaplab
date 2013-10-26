@@ -8,7 +8,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "2 Arguments required\n")
+		fmt.Fprintf(os.Stderr, "3 Arguments required\n")
 		os.Exit(1)
 	}
 	//service := os.Args[1]
