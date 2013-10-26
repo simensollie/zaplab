@@ -4,11 +4,15 @@ import (
 	"net"
 	"fmt"
 	"os"
-	"regexp"
 	"time"
+	//"regexp"
+	//"time"
 	"zaplab/topchan"
 	"zaplab/ztorage"
+	//"strings"
 )
+
+var stop bool
 
 func ListenTCP(zapstore *ztorage.Zaps, m map[string]int) {
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", ":1202")
@@ -49,13 +53,31 @@ func handleClient(conn net.Conn, zapstore *ztorage.Zaps, m map[string]int){
 		if err != nil {
 			return
 		}
-		fmt.Println(string(buf[0:]))
-		_, err2 := conn.Write(buf[0:n])
+		str := string(buf[0:n])
+		if str == "unsub" {
+			stop = true
+		}
+
+		if str == "sub" {
+			fmt.Println(str)
+			go subscription(conn, 1, zapstore, m)
+		}
+	}
+}
+
+func subscription(conn net.Conn, sleepTime int, zapstore *ztorage.Zaps, m map[string]int) {
+	for {
+		time.Sleep(1*time.Second)
+		if stop {
+			conn.Close()
+		}
+		_, err2 := conn.Write([]byte(topchan.TopTen(zapstore, m)))
 		if err2 != nil {
 			return
 		}
 	}
 }
+
 func checkError(err error){
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Fatal error %s", err.Error())
