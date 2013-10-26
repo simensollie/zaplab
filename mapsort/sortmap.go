@@ -30,9 +30,5 @@ func SortedKeys(m map[string]int) []string {
 	}
 	sort.Sort(sm)
 
-	/*var ret [10]string
-	for i:=0;i<10;i++ {
-		ret[i] = sm.s[i]
-	}*/
 	return sm.s
 }
