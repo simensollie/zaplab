@@ -8,6 +8,8 @@ import (
 
 const timeLayout = "2006/01/02, 15:04:05"
 
+var m = make(map[string]time.Time)
+
 //ar prevZap ZapEvent
 
 type ZapEvent struct {
@@ -36,7 +38,14 @@ func (ze *ZapEvent) String() string {
 	return fmt.Sprintf("%s, %s, %s, %s", ze.Dt, ze.Ip, ze.FromCh, ze.ToCh)
 }
 
-func (ze *ZapEvent) Duration(prevZap time.Time) time.Duration {
-	newZap := ze.Dt
-	return newZap.Sub(prevZap)
+func (ze *ZapEvent) Duration(newZap ZapEvent) time.Duration {
+	nz := newZap.Dt
+
+	dur := nz.Sub(m[newZap.Ip])
+
+	for _, v := range newZap {
+		m[v.Ip] = v.Dt
+	}
+
+	return nz
 }

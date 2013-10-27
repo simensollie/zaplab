@@ -44,7 +44,7 @@ func listen(conn *net.UDPConn) {
 		checkError(err)
 		nze := *zapevent.NewZapEvent(string(data[0:n]))
 		fmt.Println(nze.String())
-		fmt.Println(nze.Duration(prevZap)
+
 		zapstore.StoreZap(nze)
 
 	}
