@@ -2,10 +2,12 @@ package ztorage
 
 import (
 	"zaplab/zapevent"
+	"fmt"
+	"time"
 )
 
 type Zaps []zapevent.ZapEvent
-var m = make(map[string]ZapEvent)
+var m = make(map[string]zapevent.ZapEvent)
 
 func NewZapStore() *Zaps {
 	zs := make(Zaps, 0)
@@ -13,7 +15,7 @@ func NewZapStore() *Zaps {
 }
 
 func (zs *Zaps) StoreZap(z zapevent.ZapEvent) {
-	prevZap(z)
+	zs.PrevZap(z)
 	*zs = append(*zs, z)
 }
 
@@ -30,15 +32,19 @@ func (zs *Zaps) ComputeViewers(chName string) int {
 	return viewers
 }
 
-func (zs *Zaps) prevZap(zap zapevent.ZapEvent) {
-	m[zap.Ip] = zap.Dt
+func (zs *Zaps) PrevZap(zap zapevent.ZapEvent) {
+	m[zap.Ip] = zap
 }
 
-func (zs *Zaps) Duration(zap *zapevent.ZapEvent) string {
-	v, exists := zs.prevZap[zap.Ip]
-	dur := ""
+func ComputeDuration(zap zapevent.ZapEvent) {
+	value, exists := m[zap.Ip]
+	var dur time.Duration
 	if exists {
-		dur += zapevent.Duration(&v).String()
+		dur = zap.Duration(&value)
+		if dur != 0 {
+			fmt.Println(dur)
+
+		}
 	}
-	return dur
 }
+

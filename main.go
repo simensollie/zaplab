@@ -27,11 +27,13 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	go chviewers("NRK1")
+	//go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
 	//go topchan.TopTen(zapstore, m, 1)
 	//go tcpserver.ListenTCP(zapstore, m)
+	//go ztorage.ComputeDuration(zapstore)
+	//go fmt.Println(ztorage.ComputeDuration(zapstore))
 
 	<-c
 	memProfile()
@@ -43,7 +45,8 @@ func listen(conn *net.UDPConn) {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
 		nze := *zapevent.NewZapEvent(string(data[0:n]))
-		fmt.Println(nze.String())
+		//ztorage.ComputeDuration(nze)
+		//fmt.Println(nze.String())
 
 		zapstore.StoreZap(nze)
 
