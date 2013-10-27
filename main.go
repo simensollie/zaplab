@@ -6,17 +6,17 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"zaplab/tcpserver"
-//	"zaplab/topchan"
+	//"zaplab/tcpserver"
+	//"zaplab/topchan"
+	"flag"
+	"runtime/pprof"
 	"zaplab/zapevent"
 	"zaplab/ztorage"
-	"runtime/pprof"
-	"flag"
 )
 
 var zapstore = ztorage.NewZapStore()
 var memprofile = flag.String("memprofile", "", "write memory profile to this file")
-var m  = make(map[string]int)
+var m = make(map[string]int)
 
 func main() {
 	flag.Parse()
@@ -27,11 +27,11 @@ func main() {
 	netListen, err := net.ListenMulticastUDP("udp", nil, udpAddr)
 	checkError(err)
 	go listen(netListen)
-	//go chviewers("NRK1")
+	go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
 	//go topchan.TopTen(zapstore, m, 1)
-	go tcpserver.ListenTCP(zapstore, m)
+	//go tcpserver.ListenTCP(zapstore, m)
 
 	<-c
 	memProfile()
@@ -43,7 +43,10 @@ func listen(conn *net.UDPConn) {
 		n, _, err := conn.ReadFromUDP(data[0:])
 		checkError(err)
 		nze := *zapevent.NewZapEvent(string(data[0:n]))
+		fmt.Println(nze.String())
+		fmt.Println(nze.Duration(prevZap)
 		zapstore.StoreZap(nze)
+
 	}
 }
 
@@ -62,15 +65,14 @@ func entries(zaps *ztorage.Zaps) {
 	}
 }
 
-
-func checkError(err error){
+func checkError(err error) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Fatal error: %s", err.Error())
 		os.Exit(1)
 	}
 }
 
-func memProfile(){
+func memProfile() {
 	if *memprofile != "" {
 		f, err := os.Create(*memprofile)
 		checkError(err)
@@ -79,4 +81,3 @@ func memProfile(){
 		return
 	}
 }
-
