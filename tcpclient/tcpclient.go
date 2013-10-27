@@ -11,7 +11,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "2 Arguments required\n")
 		os.Exit(1)
 	}
-	//service := os.Args[1]
 	tcpAddr, err := net.ResolveTCPAddr("tcp", ":1202")
 	checkError(err)
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
@@ -19,9 +18,6 @@ func main() {
 
 	_, sub := conn.Write([]byte(os.Args[1]))
 	checkError(sub)
-//	_, rate := conn.Write([]byte(os.Args[2]))
-//	checkError(rate)
-//	os.Exit(0)
 	go Printer(conn)
 	var cmd string
 	fmt.Scanf("%s", &cmd)

@@ -5,11 +5,8 @@ import (
 	"fmt"
 	"os"
 	"time"
-	//"regexp"
-	//"time"
 	"zaplab/topchan"
 	"zaplab/ztorage"
-	//"strings"
 )
 
 var stop bool
@@ -32,23 +29,6 @@ func ListenTCP(zapstore *ztorage.Zaps, m map[string]int) {
 func handleClient(conn net.Conn, zapstore *ztorage.Zaps, m map[string]int){
 	var buf [512]byte
 	for {
-		/*sub, err := regexp.MatchString("sub", os.Args[1])
-		checkError(err)
-		unsub, err := regexp.MatchString("unsub", os.Args[1])
-		checkError(err)
-		refreshrate := os.Args[2] + "s"
-		rate, err :=  time.ParseDuration(refreshrate)
-		checkError(err)
-
-		if sub {
-			topchan.TopTen(zapstore, m, rate)
-		}else if unsub {
-			conn.Close()
-			os.Exit(0)
-		}else {
-			fmt.Println("You have not entered a valid argument")
-		}*/
-
 		n, err := conn.Read(buf[0:])
 		if err != nil {
 			return

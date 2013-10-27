@@ -10,8 +10,6 @@ const timeLayout = "2006/01/02, 15:04:05"
 
 var m = make(map[string]time.Time)
 
-//ar prevZap ZapEvent
-
 type ZapEvent struct {
 	Dt     time.Time
 	Ip     string
@@ -28,9 +26,6 @@ func NewZapEvent(data string) *ZapEvent {
 		return &ZapEvent{Dt: t, Ip: s[2], FromCh: s[3], ToCh: s[4]}
 	}
 
-	/*if len(s) == 4 {
-		return &ZapEvent{Dt: t, Ip: s[2], FromCh: s[3], ToCh: s[4]}
-	}*/
 	return nil
 }
 

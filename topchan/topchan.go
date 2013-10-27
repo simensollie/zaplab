@@ -3,12 +3,10 @@ package topchan
 import (
 	"zaplab/mapsort"
 	"zaplab/ztorage"
-//	"fmt"
-//	"time"
+	"time"
 )
 
 func ChCount(zaps *ztorage.Zaps, m map[string]int) {
-	//m = make(map[string]int)
 	for _, v := range *zaps {
 		if m[v.FromCh] > 0 {
 			m[v.FromCh] -= 1
@@ -40,7 +38,6 @@ func TopTen(zapstore *ztorage.Zaps, m map[string]int) string {
 				}
 				return s
 			}
-
 			i++
 		}
 		return ""

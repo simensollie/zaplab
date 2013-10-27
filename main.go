@@ -30,7 +30,7 @@ func main() {
 	//go chviewers("NRK1")
 	//go chviewers("TV2 Norge")
 	//go entries(zapstore)
-	//go topchan.TopTen(zapstore, m, 1)
+	//go topchan.TopTen(zapstore, m, 1) <-- denne ble endret i oppg f og vil ikke fungere alene
 	//go tcpserver.ListenTCP(zapstore, m)
 	//go ztorage.ComputeDuration(zapstore)
 	//go fmt.Println(ztorage.ComputeDuration(zapstore))
