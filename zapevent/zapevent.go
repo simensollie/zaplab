@@ -39,13 +39,5 @@ func (ze *ZapEvent) String() string {
 }
 
 func (ze *ZapEvent) Duration(newZap ZapEvent) time.Duration {
-	nz := newZap.Dt
-
-	dur := nz.Sub(m[newZap.Ip])
-
-	for _, v := range newZap {
-		m[v.Ip] = v.Dt
-	}
-
-	return nz
+	return ze.Time.Sub(newZap.Time)
 }
