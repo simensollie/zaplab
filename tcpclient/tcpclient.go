@@ -31,6 +31,7 @@ func Printer(conn net.Conn){
 		n, err := conn.Read(buf[0:])
 		checkError(err)
 		fmt.Println(string(buf[0:n]))
+		fmt.Println("==================================")
 	}
 }
 
